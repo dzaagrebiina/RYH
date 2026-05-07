@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RYH — Ring Your Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --linen:#F7F0E3;--sand:#EDE0C4;--oat:#F0E8D0;
+  --forest:#2D5016;--sage:#3D6B40;--mid-sage:#6A9E6D;--light-sage:#A8C8AA;
+  --terracotta:#C4855A;--terra-light:#FBF1EB;--terra-border:#E8C4A8;
+  --brown:#5C4A1E;--mid-brown:#8A7055;
+  --dark:#222C1A;--dark-card:#293318;--dark-deeper:#1E2814;--dark-border:#2E3C22;
+  --meadow:#9BB882;--fern:#6A9E6D;--off-white:#E8EDE0;--grey-green:#8A9E80;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--brown);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,240,227,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--sand);padding:0 56px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;text-decoration:none;height:36px}
+.nav-logo svg{width:38px;height:38px}
+.nav-wordmark{display:flex;flex-direction:column;gap:0}
+.nav-abbr{font-size:17px;font-weight:700;color:var(--forest);line-height:1;letter-spacing:-.01em}
+.nav-full{font-family:'DM Sans',sans-serif;font-style:normal;font-size:11px;font-weight:400;color:var(--mid-sage);line-height:1;letter-spacing:.01em;margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--sage);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--forest)}
+.teen-link{border:1px solid var(--light-sage)!important;padding:4px 14px!important;border-radius:20px!important;color:var(--forest)!important}
+.nav-cta{background:var(--forest);color:var(--linen);padding:9px 22px;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--sage)}
+
+/* HERO — centered, oat background */
+.hero{min-height:100vh;background:var(--oat);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 56px 80px;position:relative;overflow:hidden}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid-sage);margin-bottom:20px}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:62px;font-weight:600;color:var(--forest);line-height:1.1;margin-bottom:22px;max-width:700px}
+.hero-sub{font-size:17px;color:var(--brown);line-height:1.7;max-width:480px;margin:0 auto 40px}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-ring{position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:.18;pointer-events:none}
+
+.btn-primary{background:var(--forest);color:var(--linen);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s,transform .15s;display:inline-block}
+.btn-primary:hover{background:var(--sage);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--sage);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:500;text-decoration:none;border:1.5px solid var(--light-sage);transition:border-color .2s;display:inline-block}
+.btn-secondary:hover{border-color:var(--mid-sage)}
+
+/* SECTIONS */
+section{padding:96px 80px}
+.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid-sage);margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;font-weight:600;color:var(--forest);line-height:1.2;margin-bottom:16px}
+.sec-body{font-size:15px;color:var(--brown);line-height:1.7;max-width:520px}
+
+/* FEATURES */
+.features{background:var(--linen)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.feat-card{background:var(--sand);border-radius:16px;padding:28px;border:1px solid #D4C4A0}
+.feat-icon{width:38px;height:38px;border-radius:11px;background:var(--mid-sage);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2}
+.feat-icon.terra{background:var(--terracotta)}
+.feat-icon.dark{background:var(--sage)}
+.feat-title{font-size:14px;font-weight:600;color:var(--forest);margin-bottom:6px}
+.feat-body{font-size:12.5px;color:var(--brown);line-height:1.6}
+
+/* COMMUNITY */
+.community{background:var(--sand);border-top:1px solid #D4C4A0;border-bottom:1px solid #D4C4A0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.comm-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.comm-pill{font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;background:var(--sand);color:var(--forest);border:1px solid var(--light-sage)}
+.comm-box{background:var(--linen);border-radius:14px;padding:28px;border:1px solid #D4C4A0}
+.comm-box-title{font-size:15px;font-weight:600;color:var(--forest);margin-bottom:8px}
+.comm-box-body{font-size:13px;color:var(--brown);line-height:1.6}
+
+/* PARENTS */
+.parents{background:var(--oat)}
+.parents-tag{display:inline-block;background:var(--terracotta);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.pstat{background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px 12px;text-align:center}
+.pstat-val{font-size:24px;font-weight:700;color:var(--terracotta);line-height:1}
+.pstat-lbl{font-size:10.5px;color:#8A5A3A;margin-top:4px;line-height:1.4}
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.mode-card{background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px}
+.mode-dot{width:10px;height:10px;border-radius:50%;margin-bottom:8px}
+.mode-title{font-size:12px;font-weight:600;color:var(--forest);margin-bottom:4px}
+.mode-body{font-size:11.5px;color:var(--brown);line-height:1.5}
+.ai-callout{background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.ai-icon{width:36px;height:36px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ai-title{font-size:12px;font-weight:600;color:var(--terracotta);margin-bottom:4px}
+.ai-body{font-size:11.5px;color:#8A5A3A;line-height:1.55;font-style:italic}
+
+/* TRANSITION BAND — oat to full dark */
+.transition-band{padding:80px 80px;background:linear-gradient(180deg,var(--oat) 0%,var(--dark) 100%)}
+.t-tag{display:inline-block;background:rgba(155,184,130,.18);color:var(--meadow);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.t-h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:var(--off-white);line-height:1.15;margin-bottom:12px}
+.t-sub{font-size:15px;color:var(--meadow);line-height:1.6;max-width:400px;margin-bottom:28px}
+.btn-meadow{background:var(--meadow);color:var(--dark);padding:14px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-block}
+.btn-meadow:hover{background:#8AAE70}
+
+/* TEEN — fully dark from start */
+.teen{background:var(--dark);padding:0 80px 96px}
+.teen-nav-strip{background:var(--dark);padding:20px 0 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.teen-logo-wrap{display:flex;flex-direction:column}
+.teen-logo-abbr{font-size:16px;font-weight:700;color:var(--meadow);line-height:1;letter-spacing:-.01em}
+.teen-logo-full{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:var(--fern);line-height:1;letter-spacing:.03em;margin-top:2px;opacity:.75}
+.teen-back{font-size:12px;color:var(--fern);border:1px solid var(--dark-border);padding:4px 12px;border-radius:20px;text-decoration:none;opacity:.7;transition:opacity .2s}
+.teen-back:hover{opacity:1}
+
+.teen-privacy-strip{background:var(--dark-card);border-top:1px solid var(--dark-border);border-bottom:1px solid var(--dark-border);padding:14px 0;display:flex;align-items:center;gap:14px;margin:0 -80px 0;padding-left:80px;padding-right:80px}
+.tps-icon{width:26px;height:26px;border-radius:50%;background:var(--fern);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--dark);flex-shrink:0}
+.tps-text{font-size:12.5px;color:var(--grey-green);line-height:1.5}
+.tps-text b{color:var(--meadow);font-weight:600}
+
+.teen-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:56px}
+.teen-eyebrow{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fern);margin-bottom:12px;opacity:.8}
+.teen-h2{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:600;color:var(--off-white);line-height:1.1;margin-bottom:16px}
+.teen-h2 em{color:var(--meadow);font-style:italic}
+.teen-sub{font-size:14px;color:var(--grey-green);line-height:1.7;margin-bottom:28px}
+.tstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.tstat{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:14px;padding:18px 14px}
+.tstat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--meadow);line-height:1}
+.tstat-unit{font-size:10px;color:var(--fern);margin-top:3px}
+.tstat-lbl{font-size:10px;color:#5A7050;margin-top:4px}
+
+.sharing-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:14px;padding:20px;margin-bottom:14px}
+.sharing-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fern);margin-bottom:12px}
+.sharing-opts{display:flex;gap:8px;flex-wrap:wrap}
+.sharing-opt{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--dark-border);color:#5A7050;background:transparent;font-family:'DM Sans',sans-serif;transition:all .15s}
+.sharing-opt.on{background:var(--meadow);color:var(--dark-deeper);border-color:var(--meadow)}
+.sharing-desc{font-size:11.5px;color:#5A7050;margin-top:10px;line-height:1.5}
+
+.teen-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.teen-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:18px}
+.tc-title{font-size:12px;font-weight:600;color:var(--off-white);margin-bottom:6px}
+.tc-body{font-size:11px;color:#6A7A60;line-height:1.5}
+.tc-link{font-size:10.5px;font-weight:600;color:var(--meadow);margin-top:8px;display:inline-block}
+
+/* TEEN → PRICING TRANSITION */
+.teen-to-pricing{background:linear-gradient(180deg,var(--dark) 0%,var(--linen) 100%);height:100px}
+
+/* PRICING */
+.pricing{background:var(--linen);padding:96px 80px}
+.pricing-header{text-align:center;margin-bottom:64px}
+.pricing-sub-note{font-size:14px;color:var(--mid-sage);text-align:center;margin-top:10px}
+
+/* HW cards — both green, adult uses terracotta accent */
+.hw-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
+.hw-card{border-radius:16px;padding:28px;border:1.5px solid}
+.hw-card.junior{background:#f0fdf4;border-color:#86efac}
+.hw-card.adult{background:var(--terra-light);border-color:var(--terra-border)}
+.hw-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.hw-name{font-size:20px;font-weight:700;margin-bottom:6px}
+.hw-price{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;line-height:1;margin-bottom:4px}
+.hw-note{font-size:11.5px;margin-bottom:18px;line-height:1.4}
+.hw-list{list-style:none}
+.hw-list li{font-size:12.5px;padding:5px 0;display:flex;gap:8px;border-bottom:.5px solid rgba(0,0,0,.06);line-height:1.5}
+.hw-list li:last-child{border-bottom:none}
+.hw-list li::before{content:'→';font-weight:700;color:var(--mid-sage);flex-shrink:0}
+.adult .hw-list li::before{color:var(--terracotta)}
+
+/* SIZE-UP */
+.sizeup-strip{background:var(--sand);border-radius:16px;padding:32px;border:1px solid #D4C4A0;margin-bottom:48px;position:relative}
+.sizeup-title{font-size:15px;font-weight:600;color:var(--forest);margin-bottom:4px}
+.sizeup-sub{font-size:12.5px;color:var(--brown);margin-bottom:28px}
+.sizeup-track{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
+/* connecting line behind dots */
+.sizeup-track::before{content:'';position:absolute;top:19px;left:calc(12.5%);right:calc(12.5%);height:2px;background:var(--light-sage);z-index:0}
+.sizeup-step{text-align:center;position:relative;z-index:1}
+.sizeup-dot{width:40px;height:40px;border-radius:50%;background:var(--linen);border:2px solid var(--mid-sage);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--forest);margin:0 auto 10px;position:relative;z-index:2}
+.sizeup-step.adult .sizeup-dot{background:var(--forest);color:var(--linen);border-color:var(--forest)}
+.sizeup-name{font-size:12px;font-weight:600;color:var(--forest)}
+.sizeup-age{font-size:10px;color:var(--mid-sage);margin:2px 0}
+.sizeup-price{font-size:14px;font-weight:700;color:var(--sage)}
+.sizeup-save{font-size:10.5px;color:var(--mid-sage)}
+
+/* SUBSCRIPTION CARDS */
+.subs-header{text-align:center;margin-bottom:32px}
+.subs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sub-card{background:#fff;border:1.5px solid var(--sand);border-radius:16px;padding:28px;position:relative}
+.sub-card.featured{border-color:var(--forest);border-width:2px}
+.sub-card.family{border-color:#c4b5fd}
+.sub-pop{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--forest);color:var(--linen);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.sub-tier{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mid-sage);margin-bottom:4px}
+.sub-name{font-size:20px;font-weight:700;color:var(--forest);margin-bottom:4px}
+.sub-price{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--forest);line-height:1;margin-bottom:2px}
+.sub-period{font-size:12px;color:var(--mid-sage);margin-bottom:8px}
+.sub-annual{font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
+.sub-rings{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:18px}
+.sub-divider{height:1px;background:#f1f5f9;margin:14px 0}
+.sub-feats{list-style:none}
+.sub-feats li{font-size:12px;color:var(--brown);padding:4px 0;display:flex;gap:8px;line-height:1.45;border-bottom:.5px solid #f8f8f4}
+.sub-feats li:last-child{border-bottom:none}
+.sub-feats li::before{content:'✓';font-size:11px;font-weight:700;color:var(--mid-sage);flex-shrink:0;margin-top:1px}
+.sub-feats li.no{color:#ccc}
+.sub-feats li.no::before{content:'–';color:#e2e8f0}
+.sub-cta{display:block;width:100%;padding:12px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;margin-top:18px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none;text-decoration:none}
+
+/* CTA */
+.cta-section{background:var(--forest);padding:100px 80px;text-align:center}
+.cta-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light-sage);margin-bottom:14px}
+.cta-h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:50px;font-weight:600;color:var(--linen);line-height:1.15;margin-bottom:14px}
+.cta-sub{font-size:15px;color:var(--light-sage);line-height:1.6;max-width:480px;margin:0 auto 40px}
+.email-form{display:flex;gap:12px;justify-content:center;max-width:520px;margin:0 auto 16px;flex-wrap:wrap}
+.email-input{flex:1;min-width:200px;padding:14px 20px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:var(--linen);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.email-input::placeholder{color:rgba(247,240,227,.4)}
+.email-input:focus{border-color:rgba(255,255,255,.45)}
+.email-submit{padding:14px 28px;border-radius:10px;background:var(--linen);color:var(--forest);font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap}
+.email-submit:hover{background:var(--sand);transform:translateY(-1px)}
+.cta-note{font-size:11.5px;color:rgba(247,240,227,.4)}
+.form-success{display:none;font-size:15px;color:var(--light-sage);padding:16px;background:rgba(168,200,170,.15);border-radius:10px;max-width:400px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--dark-deeper);padding:56px 80px 40px}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px}
+.footer-abbr{font-size:18px;font-weight:700;color:var(--meadow);letter-spacing:-.01em}
+.footer-full{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--fern);margin-top:2px;letter-spacing:.03em}
+.footer-desc{font-size:12px;color:#5A7050;margin-top:10px;max-width:200px;line-height:1.6}
+.footer-links{display:flex;gap:48px}
+.footer-col-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--fern);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--grey-green);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--meadow)}
+.footer-bottom{border-top:1px solid var(--dark-border);padding-top:20px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:12px;color:#5A7050}
+.footer-badge{font-size:11px;color:var(--fern);background:rgba(106,158,109,.12);padding:4px 12px;border-radius:20px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .7s ease both}
+.d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.35s}
+
+@media(max-width:900px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  section,.hero,.teen,.pricing,.cta-section,footer{padding-left:24px;padding-right:24px}
+  .two-col,.teen-inner,.parents-grid{grid-template-columns:1fr;gap:32px}
+  .features-grid,.hw-grid,.subs-grid,.tstats,.teen-cards,.mode-cards,.pstats{grid-template-columns:1fr;gap:10px}
+  .feat-2x2{grid-template-columns:1fr 1fr;gap:10px}
+  .parents-right{padding-top:0!important}
+  .hero-decor{display:none}
+  .hero-h1{font-size:38px;line-height:1.15}
+  .hero-sub{font-size:15px}
+  .sec-title{font-size:30px}
+  .parents .sec-title{font-size:28px;line-height:1.2}
+  .parents{padding:64px 0}
+  .parents-tag{font-size:9.5px}
+  .pstat{padding:14px 12px}
+  .pstat-val{font-size:22px}
+  .mode-card{padding:14px}
+  .ai-callout{padding:16px;gap:12px}
+  .ai-icon{width:32px;height:32px;font-size:14px}
+  .sizeup-track{grid-template-columns:1fr 1fr;gap:24px}
+  .sizeup-track::before{display:none}
+  .teen-privacy-strip{margin:0 -24px;padding-left:24px;padding-right:24px}
+  .email-form{flex-direction:column}
+  .footer-top{flex-direction:column;gap:32px}
+  .footer-links{flex-wrap:wrap;gap:24px}
+  .parent-graphic{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;text-decoration:none;height:44px"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="430 220 460 580" width="44" height="44">
+
+<path d="M0 0 C0.85078125 0.68835938 1.7015625 1.37671875 2.578125 2.0859375 C15.77151286 13.29627013 25.61600895 29.18469186 30 46 C30.51433594 47.69576172 30.51433594 47.69576172 31.0390625 49.42578125 C36.41518842 71.29878934 31.30613819 95.7374388 19.98828125 114.84765625 C6.79211287 135.76967566 -11.9063315 148.37189945 -35.5234375 155.45703125 C-49.00761228 158.41334086 -65.00982942 158.8467857 -78 154 C-79.62035156 153.50693359 -79.62035156 153.50693359 -81.2734375 153.00390625 C-95.02654495 148.61687749 -105.70237301 140.98220418 -116 131 C-116.93392578 130.17628906 -116.93392578 130.17628906 -117.88671875 129.3359375 C-131.24458292 117.14876255 -139.92951547 95.88789344 -141.21142578 78.05957031 C-141.71996345 66.20098224 -141.9120752 54.33326505 -138 43 C-137.70996094 42.14019531 -137.41992188 41.28039062 -137.12109375 40.39453125 C-128.43596355 16.95558156 -112.13103188 -1.74126684 -89.5234375 -12.49609375 C-60.05619535 -25.07357516 -24.75209722 -20.52425453 0 0 Z " fill="#F7F0E3" transform="translate(697,395)"/>
+<path d="M0 0 C1.06250977 0.2168042 1.06250977 0.2168042 2.14648438 0.43798828 C19.44712435 3.98532659 35.47515914 9.5894328 51 18 C51.66773438 18.35465332 52.33546875 18.70930664 53.0234375 19.07470703 C73.29677438 29.86676352 90.54844473 44.04727604 107 60 C107.82886719 60.80179687 108.65773438 61.60359375 109.51171875 62.4296875 C112.67651724 65.72929485 113.89006365 67.24266069 114.5625 71.875 C114 75 114 75 112 77 C107.06032509 77.59828361 105.08426465 77.8328199 101.0859375 74.76171875 C100.16413411 73.75328159 99.26124209 72.72732786 98.375 71.6875 C97.34357479 70.57352769 96.30558117 69.46560766 95.26171875 68.36328125 C94.72853027 67.79947754 94.1953418 67.23567383 93.64599609 66.65478516 C88.91177786 61.8952878 83.41277078 57.94644471 78 54 C77.42443359 53.58008789 76.84886719 53.16017578 76.25585938 52.72753906 C54.21244416 36.88151499 29.61356754 26.15359233 3 21 C2.04287109 20.81381104 1.08574219 20.62762207 0.09960938 20.43579102 C-9.22636482 18.80578942 -18.43452035 18.5587721 -27.875 18.5625 C-28.688479 18.56176483 -29.50195801 18.56102966 -30.34008789 18.56027222 C-44.12003747 18.5928677 -56.75668946 20.01080707 -70 24 C-70.86367188 24.24105469 -71.72734375 24.48210937 -72.6171875 24.73046875 C-101.78625076 32.90992418 -126.01584572 49.56506464 -148 70 C-148.99773437 70.91652344 -148.99773437 70.91652344 -150.015625 71.8515625 C-189.75756319 109.81642215 -208.8645164 168.88286644 -210.23828125 222.515625 C-210.48566376 240.06404041 -209.25007533 256.70263904 -206 274 C-205.73174264 275.56379725 -205.46351076 277.12759886 -205.1953125 278.69140625 C-196.39517052 326.30076861 -168.24173749 373.32360556 -130 403 C-129.03191406 403.76957031 -128.06382812 404.53914063 -127.06640625 405.33203125 C-92.2366684 432.14683178 -48.19939397 442.22910962 -4.9375 437.3125 C35.92117846 431.47554593 75.60236481 411.66905962 103.6796875 381.17578125 C105 380 105 380 108 379.625 C111 380 111 380 112.875 381.0625 C114.76953564 384.32531138 114.56096151 386.25901828 114 390 C111.60201639 393.34457643 108.68336122 396.06758191 105.6875 398.875 C104.85806885 399.67437988 104.0286377 400.47375977 103.17407227 401.29736328 C97.35091097 406.85973514 91.47687691 412.20394305 85 417 C84.39929688 417.45004395 83.79859375 417.90008789 83.1796875 418.36376953 C67.2396348 430.23676466 50.32688646 439.37131057 32 447 C31.20722656 447.33797607 30.41445313 447.67595215 29.59765625 448.02416992 C23.82007602 450.42905389 18.09567219 452.16772755 12 453.5625 C11.19433594 453.75779297 10.38867188 453.95308594 9.55859375 454.15429688 C-5.44030158 457.66930517 -19.97355152 459.53479764 -35.375 459.375 C-36.1808252 459.37034729 -36.98665039 459.36569458 -37.81689453 459.36090088 C-85.04619339 459.04206808 -128.76137915 440.05281782 -164 409 C-164.74765625 408.36320312 -165.4953125 407.72640625 -166.265625 407.0703125 C-175.12188887 399.50413431 -182.854918 391.19326037 -190 382 C-190.63010986 381.19248291 -190.63010986 381.19248291 -191.27294922 380.36865234 C-204.23682849 363.62664586 -214.54924905 345.3915204 -223 326 C-223.53318848 324.77821045 -223.53318848 324.77821045 -224.07714844 323.53173828 C-228.8028225 312.47188608 -232.2549629 301.11378149 -235.3125 289.5 C-235.63814941 288.27941895 -235.96379883 287.05883789 -236.29931641 285.80126953 C-240.89064328 267.67233301 -242.50205548 249.82594659 -242.39111328 231.15209961 C-242.37499377 227.93625622 -242.39108875 224.72166576 -242.41015625 221.50585938 C-242.42268544 208.39925737 -241.34576811 195.88785192 -239 183 C-238.7734098 181.67108446 -238.54830242 180.34191491 -238.32495117 179.01245117 C-235.14088361 160.59894114 -228.66617927 142.97084574 -221 126 C-220.36708174 124.55864019 -219.73426774 123.11723459 -219.1015625 121.67578125 C-212.44561914 106.78231804 -203.92810974 92.93856882 -194 80 C-193.45214844 79.26007813 -192.90429688 78.52015625 -192.33984375 77.7578125 C-187.33392216 71.10691904 -181.72309855 65.03030265 -176 59 C-175.28602051 58.24299805 -175.28602051 58.24299805 -174.55761719 57.47070312 C-167.48269062 50.01684829 -159.98192955 43.45298162 -151.74707031 37.30712891 C-150.07674451 36.05741897 -148.42502836 34.78601959 -146.7734375 33.51171875 C-130.51793012 21.20310246 -112.23928382 12.52039388 -93 6 C-92.29665527 5.75169434 -91.59331055 5.50338867 -90.86865234 5.24755859 C-62.37372735 -4.72531959 -29.4286941 -6.38894494 0 0 Z " fill="#2D5016" transform="translate(615,235)"/>
+
+<path d="M0 0 C21.42255153 18.86586906 36.96902697 44.97868681 38.92724609 73.92041016 C39.44041645 86.08709477 38.61185584 97.46553629 35.75 109.30078125 C35.45996094 110.71810547 35.45996094 110.71810547 35.1640625 112.1640625 C33.18619308 120.83329533 28.9441395 128.53014667 24.75 136.30078125 C24.24210938 137.244375 23.73421875 138.18796875 23.2109375 139.16015625 C9.37019633 163.43944523 -13.80026551 179.42880026 -40.25 187.30078125 C-66.88350981 194.31263703 -93.60130726 190.20255191 -117.7421875 177.45703125 C-144.31248177 161.90990463 -161.62179613 136.99575883 -169.79199219 107.62792969 C-177.08617909 79.55636192 -170.85886933 51.72838213 -156.77636719 27.01293945 C-153.17741256 20.93016764 -149.02196847 15.51910731 -144.25 10.30078125 C-143.49203125 9.46160156 -142.7340625 8.62242187 -141.953125 7.7578125 C-128.32439334 -6.60580175 -110.52641311 -17.08065823 -91.25 -21.69921875 C-89.85587891 -22.03566406 -89.85587891 -22.03566406 -88.43359375 -22.37890625 C-57.06935281 -28.47634856 -24.42294467 -20.74328 0 0 Z M-132.4609375 24.734375 C-140.45552331 34.30643655 -145.71229819 44.38777609 -149.25 56.30078125 C-149.80675214 57.94856785 -150.36874268 59.5945998 -150.9375 61.23828125 C-157.49981084 80.26531659 -153.71665916 102.94565754 -145.39355469 120.79760742 C-135.07850508 141.71698295 -118.55840787 158.57422099 -96.265625 166.34375 C-95.27046875 166.65957031 -94.2753125 166.97539063 -93.25 167.30078125 C-92.29609375 167.60628906 -91.3421875 167.91179687 -90.359375 168.2265625 C-87.99747161 168.95516135 -85.63459704 169.65083583 -83.25 170.30078125 C-82.6410791 170.47424072 -82.0321582 170.6477002 -81.40478516 170.82641602 C-60.48312074 175.43221637 -36.97271371 168.23809185 -19.25 157.30078125 C-6.86621007 149.09221345 2.79085662 138.34104525 9.75 125.30078125 C10.21921875 124.43195313 10.6884375 123.563125 11.171875 122.66796875 C12.53251056 119.92150068 13.6656876 117.16802343 14.75 114.30078125 C15.21664062 113.07875 15.68328125 111.85671875 16.1640625 110.59765625 C23.2202035 90.1518209 22.06636173 66.58924923 12.96337891 47.09155273 C1.87307747 24.35405942 -15.28425057 7.61473411 -39.25 -0.69921875 C-73.33634238 -12.05046784 -108.62435707 -1.50270911 -132.4609375 24.734375 Z " fill="#2D5016" transform="translate(709.25,380.69921875)"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</svg><div style="display:flex;flex-direction:column;margin-left:10px;line-height:1"><span style="font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;color:var(--forest);letter-spacing:-.01em">RYH</span><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11.5px;font-weight:500;color:var(--mid-sage);margin-top:2px;letter-spacing:.02em">Ring Your Health</span></div></a>
+  <ul class="nav-links">
+    <li><a href="#features">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#parents">For parents</a></li>
+    <li><a href="#teens" class="teen-link">For teens →</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Get started</a>
+</nav>
+
+<!-- HERO — centred, oat bg -->
+<section class="hero" id="home">
+  <!-- Translucent rings decoration on right, overlapping the slogan slightly -->
+  <div style="position:absolute;left:68%;top:58%;transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:.22" class="hero-decor"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="380 220 510 580" width="600" height="680">
+
+<path d="M0 0 C0.85078125 0.68835938 1.7015625 1.37671875 2.578125 2.0859375 C15.77151286 13.29627013 25.61600895 29.18469186 30 46 C30.51433594 47.69576172 30.51433594 47.69576172 31.0390625 49.42578125 C36.41518842 71.29878934 31.30613819 95.7374388 19.98828125 114.84765625 C6.79211287 135.76967566 -11.9063315 148.37189945 -35.5234375 155.45703125 C-49.00761228 158.41334086 -65.00982942 158.8467857 -78 154 C-79.62035156 153.50693359 -79.62035156 153.50693359 -81.2734375 153.00390625 C-95.02654495 148.61687749 -105.70237301 140.98220418 -116 131 C-116.93392578 130.17628906 -116.93392578 130.17628906 -117.88671875 129.3359375 C-131.24458292 117.14876255 -139.92951547 95.88789344 -141.21142578 78.05957031 C-141.71996345 66.20098224 -141.9120752 54.33326505 -138 43 C-137.70996094 42.14019531 -137.41992188 41.28039062 -137.12109375 40.39453125 C-128.43596355 16.95558156 -112.13103188 -1.74126684 -89.5234375 -12.49609375 C-60.05619535 -25.07357516 -24.75209722 -20.52425453 0 0 Z " fill="#F0E8D0" transform="translate(697,395)"/>
+<path d="M0 0 C1.06250977 0.2168042 1.06250977 0.2168042 2.14648438 0.43798828 C19.44712435 3.98532659 35.47515914 9.5894328 51 18 C51.66773438 18.35465332 52.33546875 18.70930664 53.0234375 19.07470703 C73.29677438 29.86676352 90.54844473 44.04727604 107 60 C107.82886719 60.80179687 108.65773438 61.60359375 109.51171875 62.4296875 C112.67651724 65.72929485 113.89006365 67.24266069 114.5625 71.875 C114 75 114 75 112 77 C107.06032509 77.59828361 105.08426465 77.8328199 101.0859375 74.76171875 C100.16413411 73.75328159 99.26124209 72.72732786 98.375 71.6875 C97.34357479 70.57352769 96.30558117 69.46560766 95.26171875 68.36328125 C94.72853027 67.79947754 94.1953418 67.23567383 93.64599609 66.65478516 C88.91177786 61.8952878 83.41277078 57.94644471 78 54 C77.42443359 53.58008789 76.84886719 53.16017578 76.25585938 52.72753906 C54.21244416 36.88151499 29.61356754 26.15359233 3 21 C2.04287109 20.81381104 1.08574219 20.62762207 0.09960938 20.43579102 C-9.22636482 18.80578942 -18.43452035 18.5587721 -27.875 18.5625 C-28.688479 18.56176483 -29.50195801 18.56102966 -30.34008789 18.56027222 C-44.12003747 18.5928677 -56.75668946 20.01080707 -70 24 C-70.86367188 24.24105469 -71.72734375 24.48210937 -72.6171875 24.73046875 C-101.78625076 32.90992418 -126.01584572 49.56506464 -148 70 C-148.99773437 70.91652344 -148.99773437 70.91652344 -150.015625 71.8515625 C-189.75756319 109.81642215 -208.8645164 168.88286644 -210.23828125 222.515625 C-210.48566376 240.06404041 -209.25007533 256.70263904 -206 274 C-205.73174264 275.56379725 -205.46351076 277.12759886 -205.1953125 278.69140625 C-196.39517052 326.30076861 -168.24173749 373.32360556 -130 403 C-129.03191406 403.76957031 -128.06382812 404.53914063 -127.06640625 405.33203125 C-92.2366684 432.14683178 -48.19939397 442.22910962 -4.9375 437.3125 C35.92117846 431.47554593 75.60236481 411.66905962 103.6796875 381.17578125 C105 380 105 380 108 379.625 C111 380 111 380 112.875 381.0625 C114.76953564 384.32531138 114.56096151 386.25901828 114 390 C111.60201639 393.34457643 108.68336122 396.06758191 105.6875 398.875 C104.85806885 399.67437988 104.0286377 400.47375977 103.17407227 401.29736328 C97.35091097 406.85973514 91.47687691 412.20394305 85 417 C84.39929688 417.45004395 83.79859375 417.90008789 83.1796875 418.36376953 C67.2396348 430.23676466 50.32688646 439.37131057 32 447 C31.20722656 447.33797607 30.41445313 447.67595215 29.59765625 448.02416992 C23.82007602 450.42905389 18.09567219 452.16772755 12 453.5625 C11.19433594 453.75779297 10.38867188 453.95308594 9.55859375 454.15429688 C-5.44030158 457.66930517 -19.97355152 459.53479764 -35.375 459.375 C-36.1808252 459.37034729 -36.98665039 459.36569458 -37.81689453 459.36090088 C-85.04619339 459.04206808 -128.76137915 440.05281782 -164 409 C-164.74765625 408.36320312 -165.4953125 407.72640625 -166.265625 407.0703125 C-175.12188887 399.50413431 -182.854918 391.19326037 -190 382 C-190.63010986 381.19248291 -190.63010986 381.19248291 -191.27294922 380.36865234 C-204.23682849 363.62664586 -214.54924905 345.3915204 -223 326 C-223.53318848 324.77821045 -223.53318848 324.77821045 -224.07714844 323.53173828 C-228.8028225 312.47188608 -232.2549629 301.11378149 -235.3125 289.5 C-235.63814941 288.27941895 -235.96379883 287.05883789 -236.29931641 285.80126953 C-240.89064328 267.67233301 -242.50205548 249.82594659 -242.39111328 231.15209961 C-242.37499377 227.93625622 -242.39108875 224.72166576 -242.41015625 221.50585938 C-242.42268544 208.39925737 -241.34576811 195.88785192 -239 183 C-238.7734098 181.67108446 -238.54830242 180.34191491 -238.32495117 179.01245117 C-235.14088361 160.59894114 -228.66617927 142.97084574 -221 126 C-220.36708174 124.55864019 -219.73426774 123.11723459 -219.1015625 121.67578125 C-212.44561914 106.78231804 -203.92810974 92.93856882 -194 80 C-193.45214844 79.26007813 -192.90429688 78.52015625 -192.33984375 77.7578125 C-187.33392216 71.10691904 -181.72309855 65.03030265 -176 59 C-175.28602051 58.24299805 -175.28602051 58.24299805 -174.55761719 57.47070312 C-167.48269062 50.01684829 -159.98192955 43.45298162 -151.74707031 37.30712891 C-150.07674451 36.05741897 -148.42502836 34.78601959 -146.7734375 33.51171875 C-130.51793012 21.20310246 -112.23928382 12.52039388 -93 6 C-92.29665527 5.75169434 -91.59331055 5.50338867 -90.86865234 5.24755859 C-62.37372735 -4.72531959 -29.4286941 -6.38894494 0 0 Z " fill="#A8C8AA" transform="translate(615,235)"/>
+
+<path d="M0 0 C21.42255153 18.86586906 36.96902697 44.97868681 38.92724609 73.92041016 C39.44041645 86.08709477 38.61185584 97.46553629 35.75 109.30078125 C35.45996094 110.71810547 35.45996094 110.71810547 35.1640625 112.1640625 C33.18619308 120.83329533 28.9441395 128.53014667 24.75 136.30078125 C24.24210938 137.244375 23.73421875 138.18796875 23.2109375 139.16015625 C9.37019633 163.43944523 -13.80026551 179.42880026 -40.25 187.30078125 C-66.88350981 194.31263703 -93.60130726 190.20255191 -117.7421875 177.45703125 C-144.31248177 161.90990463 -161.62179613 136.99575883 -169.79199219 107.62792969 C-177.08617909 79.55636192 -170.85886933 51.72838213 -156.77636719 27.01293945 C-153.17741256 20.93016764 -149.02196847 15.51910731 -144.25 10.30078125 C-143.49203125 9.46160156 -142.7340625 8.62242187 -141.953125 7.7578125 C-128.32439334 -6.60580175 -110.52641311 -17.08065823 -91.25 -21.69921875 C-89.85587891 -22.03566406 -89.85587891 -22.03566406 -88.43359375 -22.37890625 C-57.06935281 -28.47634856 -24.42294467 -20.74328 0 0 Z M-132.4609375 24.734375 C-140.45552331 34.30643655 -145.71229819 44.38777609 -149.25 56.30078125 C-149.80675214 57.94856785 -150.36874268 59.5945998 -150.9375 61.23828125 C-157.49981084 80.26531659 -153.71665916 102.94565754 -145.39355469 120.79760742 C-135.07850508 141.71698295 -118.55840787 158.57422099 -96.265625 166.34375 C-95.27046875 166.65957031 -94.2753125 166.97539063 -93.25 167.30078125 C-92.29609375 167.60628906 -91.3421875 167.91179687 -90.359375 168.2265625 C-87.99747161 168.95516135 -85.63459704 169.65083583 -83.25 170.30078125 C-82.6410791 170.47424072 -82.0321582 170.6477002 -81.40478516 170.82641602 C-60.48312074 175.43221637 -36.97271371 168.23809185 -19.25 157.30078125 C-6.86621007 149.09221345 2.79085662 138.34104525 9.75 125.30078125 C10.21921875 124.43195313 10.6884375 123.563125 11.171875 122.66796875 C12.53251056 119.92150068 13.6656876 117.16802343 14.75 114.30078125 C15.21664062 113.07875 15.68328125 111.85671875 16.1640625 110.59765625 C23.2202035 90.1518209 22.06636173 66.58924923 12.96337891 47.09155273 C1.87307747 24.35405942 -15.28425057 7.61473411 -39.25 -0.69921875 C-73.33634238 -12.05046784 -108.62435707 -1.50270911 -132.4609375 24.734375 Z " fill="#A8C8AA" transform="translate(709.25,380.69921875)"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</svg></div>
+  <div style="position:relative;z-index:1">
+  <p class="hero-eyebrow fade-up">Smart ring · Ages 10–18 · For families</p>
+  <h1 class="hero-h1 fade-up d1">Your family health<br>can grow together</h1>
+  <p class="hero-sub fade-up d2">The first smart ring built for children and teenagers — and the parents who want to understand them.</p>
+  <div class="hero-btns fade-up d3">
+    <a href="#waitlist" class="btn-primary">Get early access</a>
+    <a href="#features" class="btn-secondary">How it works</a>
+  </div>
+  <div class="fade-up d3" style="display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+    <a href="#parents" style="font-size:13px;font-weight:600;color:#fff;text-decoration:none;padding:9px 22px;border-radius:10px;border:1.5px solid var(--terracotta);background:var(--terracotta);transition:all .2s" onmouseover="this.style.background='#b5744a';this.style.borderColor='#b5744a'" onmouseout="this.style.background='var(--terracotta)';this.style.borderColor='var(--terracotta)'">For parents →</a>
+    <a href="#teens" style="font-size:13px;font-weight:600;color:var(--forest);text-decoration:none;padding:9px 22px;border-radius:10px;border:1.5px solid var(--light-sage);background:var(--light-sage);transition:all .2s" onmouseover="this.style.background='#96BAA0'" onmouseout="this.style.background='var(--light-sage)'">For teens →</a>
+  </div>
+  </div><!-- /hero content wrapper -->
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <p class="eyebrow">What RYH does</p>
+  <h2 class="sec-title">Health that grows with your child</h2>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+      <div class="feat-title">Grows with your child</div>
+      <div class="feat-body">Three junior size-ups then adult graduation at 18. Every ring carries the full health journey forward.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon terra"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="feat-title">Parent dashboard</div>
+      <div class="feat-body">AI plain-English summaries every Monday. No raw numbers — just what matters to you as a parent.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="feat-title">Community space</div>
+      <div class="feat-body">A safe space for shared goals and peer connection — at your own pace. No leaderboards, no pressure.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon dark"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="feat-title">Paediatric health tracking</div>
+      <div class="feat-body">Sleep, activity, HRV, SpO2 and recovery — calibrated for growing bodies, not adult baselines.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="feat-title">Design collaborations</div>
+      <div class="feat-body">IP-collaboration ring designs kids actually want to wear. Seasonal drops and activity-unlocked exclusives.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon dark"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="feat-title">Two experience modes</div>
+      <div class="feat-body">Junior Mode (10–14) with full parent control. Teen Mode (14–18) where the teen decides what to share.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="two-col">
+    <div>
+      <p class="eyebrow">Community space</p>
+      <h2 class="sec-title">Move together, not against each other</h2>
+      <p class="sec-body">School groups, friend circles, family goals. Everyone works toward their own personal best — the community celebrates effort, not ranking.</p>
+      <div class="comm-pills">
+        <span class="comm-pill">School groups</span>
+        <span class="comm-pill">Family goals</span>
+        <span class="comm-pill">Friend circles</span>
+        <span class="comm-pill">Personal milestones</span>
+      </div>
+    </div>
+    <div class="comm-box">
+      <div class="comm-box-title">No leaderboards. No pressure.</div>
+      <div class="comm-box-body" style="margin-bottom:14px">Progress is shown as improvement against your own baseline — not a ranking against anyone else. A less active child can outperform a more active one simply by improving more.</div>
+      <div class="comm-box-body">Challenge scores show % improvement on personal record. Everyone is on the same playing field.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR PARENTS -->
+<section class="parents" id="parents">
+  <div style="text-align:center;margin-bottom:56px">
+    <span class="parents-tag">For parents</span>
+    <h2 class="sec-title" style="text-align:center;margin:12px auto 12px">You'll know how they're doing.<br>Without asking every five minutes.</h2>
+    <p style="font-size:15px;color:var(--brown);line-height:1.7;max-width:560px;margin:0 auto">RYH translates your child's health data into plain English — delivered every Monday morning. What's normal, what's worth noticing, what to do next.</p>
+  </div>
+
+  <!-- Top stats row -->
+  <div class="pstats" style="max-width:640px;margin:0 auto 48px">
+    <div class="pstat"><div class="pstat-val">8.2h</div><div class="pstat-lbl">avg sleep · this week</div></div>
+    <div class="pstat"><div class="pstat-val">84</div><div class="pstat-lbl">recovery score · strong</div></div>
+    <div class="pstat"><div class="pstat-val">+12%</div><div class="pstat-lbl">activity vs last week</div></div>
+  </div>
+
+  <!-- Main two-col layout -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:48px" class="parents-grid">
+    <!-- Left: mode cards + 2x2 feature cards -->
+    <div>
+      <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);margin-bottom:16px">Two experience modes</p>
+      <div class="mode-cards" style="margin-bottom:16px">
+        <div class="mode-card">
+          <div class="mode-dot" style="background:#A8C8AA"></div>
+          <div class="mode-title">Junior Mode · Ages 10–14</div>
+          <div class="mode-body">Full parent visibility. Child sees emoji health cards. You approve community participation and friendships.</div>
+        </div>
+        <div class="mode-card">
+          <div class="mode-dot" style="background:#2D5016"></div>
+          <div class="mode-title">Teen Mode · Ages 14–18</div>
+          <div class="mode-body">Teen controls what they share. You see only what they choose. Privacy built in — trust built over time.</div>
+        </div>
+      </div>
+
+      <!-- 2x2 feature grid — replaces the old 1x4 row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="feat-2x2">
+        <div style="background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px">
+          <div style="font-size:20px;margin-bottom:6px">🏃</div>
+          <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:3px">Activity tracking</div>
+          <div style="font-size:11px;color:var(--brown);line-height:1.5">Daily steps and activity score — calibrated for your child's age and size.</div>
+        </div>
+        <div style="background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px">
+          <div style="font-size:20px;margin-bottom:6px">🌙</div>
+          <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:3px">Sleep insights</div>
+          <div style="font-size:11px;color:var(--brown);line-height:1.5">Duration, sleep stages and consistency — shown in plain language.</div>
+        </div>
+        <div style="background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px">
+          <div style="font-size:20px;margin-bottom:6px">💚</div>
+          <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:3px">Heart &amp; recovery</div>
+          <div style="font-size:11px;color:var(--brown);line-height:1.5">HRV and resting HR trends — early signals of illness or overexertion.</div>
+        </div>
+        <div style="background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:16px">
+          <div style="font-size:20px;margin-bottom:6px">🔔</div>
+          <div style="font-size:12px;font-weight:600;color:var(--forest);margin-bottom:3px">Illness early warning</div>
+          <div style="font-size:11px;color:var(--brown);line-height:1.5">Temperature rise plus elevated HR signals illness 1–2 days early.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: weekly trend + AI summary + decorative graphic -->
+    <div style="position:relative;padding-top:120px" class="parents-right">
+      <!-- Weekly sleep trend -->
+      <div style="background:var(--terra-light);border:1px solid var(--terra-border);border-radius:12px;padding:20px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:600;color:var(--brown)">Mia's sleep — last 7 days</div>
+          <div style="font-size:11px;font-weight:600;color:var(--terracotta)">↑ Improving</div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:52px;margin-bottom:8px">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.55" data-h="62"></div>
+            <div style="font-size:9px;color:#8A5A3A">M</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.7" data-h="75"></div>
+            <div style="font-size:9px;color:#8A5A3A">T</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.45" data-h="52"></div>
+            <div style="font-size:9px;color:#8A5A3A">W</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0" data-h="88"></div>
+            <div style="font-size:9px;color:#8A5A3A">T</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.85" data-h="82"></div>
+            <div style="font-size:9px;color:#8A5A3A">F</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.9" data-h="85"></div>
+            <div style="font-size:9px;color:#8A5A3A">S</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+            <div style="width:100%;background:var(--terracotta);border-radius:3px 3px 0 0;opacity:.75" data-h="78"></div>
+            <div style="font-size:9px;color:#8A5A3A">S</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#8A5A3A">Target: 8h · This week avg: 8.2h</div>
+      </div>
+
+      <!-- AI Summary -->
+      <div class="ai-callout">
+        <div class="ai-icon">✦</div>
+        <div>
+          <div class="ai-title">AI plain-English weekly summary — every Monday</div>
+          <div class="ai-body">"Mia had a strong week. Sleep averaged 8.2 hours and her recovery score is excellent. Her activity dropped slightly on Thursday — this often happens after busy school days and she recovered well by Friday. No concerns to flag."</div>
+        </div>
+      </div>
+
+      <!-- Decorative ring graphic in bottom right corner -->
+      <div style="position:absolute;bottom:-32px;right:-24px;opacity:.18;pointer-events:none;z-index:-1" class="parent-graphic">
+        <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
+          <path d="M 96 32 A 56 56 0 1 1 96 128" stroke="#C4855A" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <circle cx="111" cy="80" r="22" stroke="#C4855A" stroke-width="9" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEEN — abrupt cut from oat to dark, no transition -->
+<div id="teens">
+  <section class="teen">
+    <div class="teen-nav-strip">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div>
+          <div class="teen-logo-abbr">RYH</div>
+          <div class="teen-logo-full">Ring Your Health</div>
+        </div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fern);background:rgba(106,158,109,.15);padding:3px 10px;border-radius:20px;border:1px solid var(--dark-border)">For teens</span>
+      </div>
+      <a href="#home" class="teen-back">← Main site</a>
+    </div>
+
+    <div class="teen-privacy-strip">
+      <div class="tps-icon">◎</div>
+      <div class="tps-text"><b>Your data belongs to you.</b> You control exactly what your parents see — Full, Summary only, or nothing at all. Change it anytime.</div>
+    </div>
+
+    <div class="teen-inner">
+      <div>
+        <p class="teen-eyebrow">Smart ring · Ages 14–18 · Your terms</p>
+        <h2 class="teen-h2">Your body.<br><em>Your data.</em><br>Your call.</h2>
+        <p class="teen-sub">RYH shows you what's actually going on — and you decide what, if anything, your parents see. No lectures. No pressure. Just you and your ring.</p>
+        <div class="tstats">
+          <div class="tstat"><div class="tstat-val">8.2h</div><div class="tstat-unit">avg sleep this week</div><div class="tstat-lbl">Your personal best</div></div>
+          <div class="tstat"><div class="tstat-val">84</div><div class="tstat-unit">recovery score</div><div class="tstat-lbl">Good day ahead</div></div>
+          <div class="tstat"><div class="tstat-val">+12%</div><div class="tstat-unit">vs last week</div><div class="tstat-lbl">Ahead of your goal</div></div>
+        </div>
+        <a href="#waitlist" class="btn-meadow">Get your ring</a>
+      </div>
+      <div>
+        <div class="sharing-card">
+          <div class="sharing-label">What your parents see — you decide</div>
+          <div class="sharing-opts">
+            <button class="sharing-opt on" onclick="setShar(this,'Full')">Full</button>
+            <button class="sharing-opt" onclick="setShar(this,'Summary only')">Summary only</button>
+            <button class="sharing-opt" onclick="setShar(this,'Nothing')">Nothing</button>
+          </div>
+          <div class="sharing-desc" id="shar-desc">Currently sharing full data. Your parent sees the same dashboard you do. Change it anytime from settings.</div>
+        </div>
+
+        <div class="teen-cards" style="display:none">
+          <div class="teen-card">
+            <div class="tc-title">Your baseline, your goal</div>
+            <div class="tc-body">Goals are set from your own data — not a generic number for everyone your age.</div>
+            <span class="tc-link">How it works →</span>
+          </div>
+          <div class="teen-card">
+            <div class="tc-title">No leaderboards</div>
+            <div class="tc-body">Community space shows improvement, not rank. No one can see your exact scores.</div>
+            <span class="tc-link">About privacy →</span>
+          </div>
+        </div>
+
+        <!-- Weekly sleep trend mini-chart -->
+        <div class="teen-card" style="margin-top:12px;padding:18px 20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div class="tc-title">Sleep this week</div>
+            <div style="font-size:11px;color:var(--fern);font-weight:600">↑ Better than last week</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:48px;margin-bottom:8px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--fern);border-radius:3px 3px 0 0;opacity:.6" data-h="68"></div>
+              <div style="font-size:9px;color:#5A7050">M</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--fern);border-radius:3px 3px 0 0;opacity:.75" data-h="78"></div>
+              <div style="font-size:9px;color:#5A7050">T</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--fern);border-radius:3px 3px 0 0;opacity:.5" data-h="55"></div>
+              <div style="font-size:9px;color:#5A7050">W</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--meadow);border-radius:3px 3px 0 0" data-h="90"></div>
+              <div style="font-size:9px;color:#5A7050">T</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--meadow);border-radius:3px 3px 0 0" data-h="85"></div>
+              <div style="font-size:9px;color:#5A7050">F</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--meadow);border-radius:3px 3px 0 0;opacity:.8" data-h="80"></div>
+              <div style="font-size:9px;color:#5A7050">S</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+              <div style="width:100%;background:var(--fern);border-radius:3px 3px 0 0;opacity:.7" data-h="72"></div>
+              <div style="font-size:9px;color:#5A7050">S</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:#5A7050">Target: 8h · Avg this week: 8.2h 🌙</div>
+        </div>
+
+        <!-- Recovery insight card -->
+        <div style="background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:16px 18px;margin-top:12px;display:flex;gap:14px;align-items:flex-start">
+          <div style="width:38px;height:38px;border-radius:50%;background:rgba(155,184,130,.15);border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✦</div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--meadow);margin-bottom:4px">Your body this morning</div>
+            <div style="font-size:11px;color:var(--grey-green);line-height:1.55">"You slept really well and your heart rate stayed calm. Your body recovered fast after Thursday's session. Keep it up 🌿"</div>
+          </div>
+        </div>
+
+        <!-- Design drops teaser -->
+        <div style="background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:16px 18px;margin-top:12px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--fern);margin-bottom:10px">Ring designs</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:8px;background:var(--dark-deeper);color:var(--meadow);border:1px solid var(--dark-border)">Studio drop — Oct '26</span>
+            <span style="font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:8px;background:var(--dark-deeper);color:var(--meadow);border:1px solid var(--dark-border)">Activity-unlocked</span>
+            <span style="font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:8px;background:var(--dark-deeper);color:var(--meadow);border:1px solid var(--dark-border)">IP collabs</span>
+          </div>
+          <div style="font-size:10.5px;color:#5A7050;margin-top:8px">Wear something you're proud of. Designs you unlock by hitting your own goals.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teen community space section — from screenshot 2 -->
+    <div style="margin-top:64px">
+      <p class="teen-eyebrow">Community space</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--off-white);line-height:1.2;margin-bottom:12px">Move with your people.<br>At your own pace.</h3>
+      <p style="font-size:14px;color:var(--grey-green);line-height:1.65;max-width:640px;margin-bottom:24px">Join school groups, friend circles, or RYH-wide seasonal goals. Progress shown as improvement against your own baseline — not a ranking against anyone else.</p>
+
+      <!-- Your baseline + No leaderboards cards — moved here, under Community Space -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+        <div class="teen-card">
+          <div class="tc-title">Your baseline, your goal</div>
+          <div class="tc-body">Goals are set from your own data — not a generic number for everyone your age.</div>
+          <span class="tc-link">How it works →</span>
+        </div>
+        <div class="teen-card">
+          <div class="tc-title">No leaderboards</div>
+          <div class="tc-body">Community space shows improvement, not rank. No one can see your exact scores.</div>
+          <span class="tc-link">About privacy →</span>
+        </div>
+      </div>
+
+      <!-- Progress card -->
+      <div style="background:var(--dark-card);border:1px solid var(--dark-border);border-radius:14px;padding:20px 24px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:600;color:var(--off-white)">Year 10 Autumn goal</div>
+          <div style="font-size:11px;font-weight:700;color:var(--meadow);background:var(--dark-deeper);padding:4px 12px;border-radius:6px;border:1px solid var(--dark-border)">Active · 4 days left</div>
+        </div>
+        <div style="height:8px;background:var(--dark-deeper);border-radius:4px;margin-bottom:10px;overflow:hidden">
+          <div style="height:8px;width:73%;background:var(--meadow);border-radius:4px"></div>
+        </div>
+        <div style="font-size:12px;color:#5A7050">73% of your personal goal · 24 classmates also going for it</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRICING —  direct cut from dark teen to linen pricing -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <p class="eyebrow" style="text-align:center">Transparent pricing</p>
+    <h2 class="sec-title" style="text-align:center;margin:0 auto">Simple rings, simple pricing</h2>
+    <p class="pricing-sub-note">Subscriptions are always optional. The ring tracks health without one.</p>
+  </div>
+
+  <!-- Hardware -->
+  <div class="hw-grid">
+    <div class="hw-card junior">
+      <div class="hw-label" style="color:var(--mid-sage)">Kids & Teen Ring</div>
+      <div class="hw-name" style="color:var(--forest)">RYH Junior</div>
+      <div class="hw-price" style="color:var(--forest)">£149</div>
+      <div class="hw-note" style="color:var(--mid-sage)">One-off · Ages 10–18 · includes sizing insert kit</div>
+      <ul class="hw-list">
+        <li>Community space and peer goals</li>
+        <li>AI health insights in teen language</li>
+        <li>IP-collaboration custom designs</li>
+        <li>Modular insert system for growing fingers</li>
+        <li>Dual Junior / Teen experience modes</li>
+        <li>3 months RYH Connect included free</li>
+      </ul>
+    </div>
+    <div class="hw-card adult">
+      <div class="hw-label" style="color:var(--terracotta)">Parent / Adult Ring</div>
+      <div class="hw-name" style="color:var(--forest)">RYH Adult</div>
+      <div class="hw-price" style="color:var(--terracotta)">£199</div>
+      <div class="hw-note" style="color:#8A5A3A">One-off · Ages 18+ · parents and grown-up teens</div>
+      <ul class="hw-list">
+        <li>Full adult health suite (HRV, SpO2, recovery)</li>
+        <li>AI plain-English parent dashboard</li>
+        <li>Family account management</li>
+        <li>Premium design finishes</li>
+        <li>Health history continuity from Junior ring</li>
+        <li>3 months RYH Connect included free</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Size-up programme -->
+  <div class="sizeup-strip">
+    <div class="sizeup-title">Size-up programme — the full journey</div>
+    <div class="sizeup-sub">Each replacement ring is cheaper than the last. The full 4-ring journey costs £496 vs £596+ buying new each time.</div>
+    <div class="sizeup-track">
+      <div class="sizeup-step"><div class="sizeup-dot">1</div><div class="sizeup-name">Starter</div><div class="sizeup-age">Ages 10–11</div><div class="sizeup-price">£149</div><div class="sizeup-save">—</div></div>
+      <div class="sizeup-step"><div class="sizeup-dot">2</div><div class="sizeup-name">Explorer</div><div class="sizeup-age">Ages 12–14</div><div class="sizeup-price">£109</div><div class="sizeup-save">Save £40</div></div>
+      <div class="sizeup-step"><div class="sizeup-dot">3</div><div class="sizeup-name">Senior</div><div class="sizeup-age">Ages 15–17</div><div class="sizeup-price">£89</div><div class="sizeup-save">Save £60</div></div>
+      <div class="sizeup-step adult"><div class="sizeup-dot">↑</div><div class="sizeup-name">Graduate</div><div class="sizeup-age">Ages 17–18</div><div class="sizeup-price">£149</div><div class="sizeup-save">£50 loyalty</div></div>
+    </div>
+  </div>
+
+  <!-- Subscriptions -->
+  <div class="subs-header">
+    <p class="eyebrow" style="text-align:center">Subscriptions — always optional</p>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--forest);margin-top:6px">Choose what works for your family</h3>
+  </div>
+  <div class="subs-grid">
+    <div class="sub-card">
+      <div class="sub-tier">Free tier</div>
+      <div class="sub-name">RYH Basic</div>
+      <div class="sub-price" style="color:#475569">£0</div>
+      <div class="sub-period">Forever · included with ring</div>
+      <span class="sub-annual" style="background:#f1f5f9;color:#64748b">No card needed</span><br>
+      <span class="sub-rings" style="background:#f8fafc;color:var(--sage)">1 ring per account</span>
+      <div class="sub-divider"></div>
+      <ul class="sub-feats">
+        <li>Steps, sleep, resting HR, SpO2</li>
+        <li>7-day data history</li>
+        <li>Daily emoji health card</li>
+        <li>Basic parent view — activity only</li>
+        <li>Activity milestone badges</li>
+        <li class="no">AI health summaries</li>
+        <li class="no">Community space</li>
+        <li class="no">Full parent dashboard</li>
+      </ul>
+      <a href="#waitlist" class="sub-cta" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">Get started free</a>
+    </div>
+    <div class="sub-card featured">
+      <div class="sub-pop">Most popular</div>
+      <div class="sub-tier">Personal tier</div>
+      <div class="sub-name">RYH Connect</div>
+      <div class="sub-price">£3.99</div>
+      <div class="sub-period">per month · or <strong>£39.99/year</strong></div>
+      <span class="sub-annual" style="background:#dcfce7;color:#166534">Save £7.89 annually</span><br>
+      <span class="sub-rings" style="background:#f0fdf4;color:var(--sage)">1 ring per account</span>
+      <div class="sub-divider"></div>
+      <ul class="sub-feats">
+        <li>Everything in Basic</li>
+        <li>Unlimited health data history</li>
+        <li>Full metrics: HRV, sleep stages, recovery</li>
+        <li>Weekly AI summary — parent plain English</li>
+        <li>Weekly AI summary — teen version</li>
+        <li>Pattern alerts + illness early warning</li>
+        <li>Traffic-light health status</li>
+        <li>Community space + friends + school groups</li>
+        <li>Full ring face design library</li>
+        <li>GP-ready health data export</li>
+      </ul>
+      <a href="#waitlist" class="sub-cta" style="background:var(--forest);color:var(--linen)">Get Connect</a>
+    </div>
+    <div class="sub-card family">
+      <div class="sub-tier" style="color:#7c3aed">Family tier</div>
+      <div class="sub-name" style="color:#4c1d95">RYH Family</div>
+      <div class="sub-price" style="color:#7c3aed">£6.99</div>
+      <div class="sub-period">per month · or <strong>£69.99/year</strong></div>
+      <span class="sub-annual" style="background:#f3e8ff;color:#6b21a8">Save £13.89 annually</span><br>
+      <span class="sub-rings" style="background:#faf5ff;color:#6b21a8">Up to 3 rings · 1 account</span>
+      <div class="sub-divider"></div>
+      <ul class="sub-feats">
+        <li>Everything in Connect (all rings)</li>
+        <li>Unified family dashboard</li>
+        <li>Family AI weekly report</li>
+        <li>Custom family challenges + group chat</li>
+        <li>Location check-in (opt-in, child-visible)</li>
+        <li>Priority alerts — push and email</li>
+        <li>1 free annual insert set per child ring</li>
+        <li>7-day first access to design drops</li>
+        <li>Priority support — 24h response</li>
+      </ul>
+      <a href="#waitlist" class="sub-cta" style="background:#7c3aed;color:#fff">Get Family</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <p class="cta-eyebrow">Join the waitlist</p>
+  <h2 class="cta-h2">Be first when<br>RYH launches</h2>
+  <p class="cta-sub">We're building the first smart ring for families. Leave your email and we'll let you know when pre-orders open — and give you early access pricing.</p>
+  <form class="email-form" onsubmit="handleSubmit(event)">
+    <input type="email" class="email-input" placeholder="your@email.com" required>
+    <button type="submit" class="email-submit">Get early access →</button>
+  </form>
+  <div class="form-success" id="form-success">✓ &nbsp; You're on the list. We'll be in touch when pre-orders open.</div>
+  <p class="cta-note">No spam. Unsubscribe anytime. Launching in the UK first.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-abbr">RYH</div>
+      <div class="footer-full">Ring Your Health</div>
+      <p class="footer-desc">The first smart ring built for children, teenagers and the families who love them.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Product</div>
+        <a href="#features">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#parents">For parents</a>
+        <a href="#teens">For teens</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Rings</div>
+        <a href="#pricing">RYH Junior — £149</a>
+        <a href="#pricing">RYH Adult — £199</a>
+        <a href="#pricing">Size-up programme</a>
+        <a href="#pricing">Design drops</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">About</a>
+        <a href="#">Privacy &amp; GDPR</a>
+        <a href="#">Children's Code</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 RYH — Ring Your Health Ltd. All rights reserved. UK registered.</span>
+    <span class="footer-badge">ICO Children's Code compliant</span>
+  </div>
+</footer>
+
+<script>
+function setShar(btn,val){
+  document.querySelectorAll('.sharing-opt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const msgs={
+    'Full':'Currently sharing full data. Your parent sees the same dashboard you do. Change it anytime from settings.',
+    'Summary only':'Your parent sees a weekly summary only — no individual metrics, no daily data. Just the big picture.',
+    'Nothing':'Your data is entirely yours. Your parent sees nothing. You can change this at any time.'
+  };
+  document.getElementById('shar-desc').textContent=msgs[val];
+}
+function handleSubmit(e){
+  e.preventDefault();
+  document.querySelector('.email-form').style.display='none';
+  document.getElementById('form-success').style.display='block';
+}
+// Render all sleep bars (teen + parent)
+document.querySelectorAll('[data-h]').forEach(function(el){
+  el.style.height = (el.getAttribute('data-h') * 0.52) + 'px';
+});
+</script>
+</body>
+</html>
