@@ -3,7 +3,6 @@
 The idea in a nutshell
 
 Most wearables are built for adults chasing performance numbers. Teenagers get handed the same dashboards, and parents are left choosing between knowing nothing and checking up on their child's every move.
-
 RYH tries to sit in the middle:
 For teens (10–18): a discreet ring and an app that explains what the data actually means in plain language, instead of throwing charts at them.
 For parents (30–45): a calmer view of wellbeing trends, built around consent and conversation rather than tracking.
